@@ -1,0 +1,17 @@
+{
+    "name": "automated-testing-demo",
+    "version": "1.0.0",
+    "scripts": {
+      "test": "jest"
+    },
+    "dependencies": {
+      // Add any runtime dependencies here
+    },
+    "devDependencies": {
+      "jest": "^29.0.0"
+    },
+    "jest": {
+      "testEnvironment": "node"
+    }
+  }
+  
