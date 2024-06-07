@@ -1,56 +1,28 @@
-name: pages build and deployment
+name: Automated Testing Demo
 
 on:
   push:
     branches:
-      - main  # Change this to your default branch if it's not 'main'
+      - main  # Triggers the workflow on push to the 'main' branch
   pull_request:
     branches:
-      - main
+      - main  # Triggers the workflow on pull requests to the 'main' branch
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  test:
+    runs-on: ubuntu-latest  # Specifies the type of runner to use
+    
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Checks out the repository
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Change the Node.js version if necessary
-
-    - name: Display Node.js version
-      run: node -v
-
-    - name: Display npm version
-      run: npm -v
+        node-version: '14'  # Specify the Node.js version
 
     - name: Install dependencies
-      run: npm install
+      run: npm install  # Installs project dependencies
 
-    - name: Build project
-      run: npm run build
-
-  report-build-status:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Report build status
-      run: echo "Build succeeded!"
-
-  deploy:
-    needs: report-build-status
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build  # Change to your build output directory
+    - name: Run tests
+      run: npm test  # Runs the test script defined in package.json
